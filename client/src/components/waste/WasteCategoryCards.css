@@ -1,0 +1,132 @@
+/* client/src/components/waste/WasteCategoryCards.css */
+
+.breakdown-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.breakdown-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-top: 3px solid;
+  transition: all 0.3s;
+}
+
+.breakdown-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.breakdown-card.recycle { 
+  border-top-color: #10B981; 
+}
+
+.breakdown-card.hazardous { 
+  border-top-color: #EF4444; 
+}
+
+.breakdown-card.biosolid { 
+  border-top-color: #92400E; 
+}
+.breakdown-subsection {
+  margin: 12px 0;
+  padding: 8px;
+  background: #F9FAFB;
+  border-radius: 6px;
+}
+
+.breakdown-subsection-header {
+  font-size: 11px;
+  font-weight: 700;
+  color: #10B981;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.breakdown-item.subtotal {
+  background: white;
+  padding: 8px;
+  margin-top: 8px;
+  border-radius: 4px;
+  border: 1px solid #E5E7EB;
+}
+
+.breakdown-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6B7280;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.breakdown-section-label {
+  font-weight: 600;
+  color: #6B7280;
+  margin: 12px 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #E5E7EB;
+  font-size: 13px;
+  gap: 8px;
+}
+
+.breakdown-item:last-child { 
+  border-bottom: none; 
+}
+
+.breakdown-item span:first-child {
+  color: #6B7280;
+}
+
+.breakdown-value {
+  font-weight: 600;
+  color: #1f2937;
+  text-align: right;
+}
+
+.breakdown-total {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 2px solid #E5E7EB;
+}
+
+.breakdown-card.recycle .breakdown-total {
+  border-top-color: #10B981;
+}
+
+.breakdown-card.hazardous .breakdown-total {
+  border-top-color: #EF4444;
+}
+
+.breakdown-card.biosolid .breakdown-total {
+  border-top-color: #92400E;
+}
+
+.breakdown-value.total-recycle {
+  color: #10B981;
+}
+
+.breakdown-value.total-hazardous {
+  color: #EF4444;
+}
+
+.breakdown-value.total-biosolid {
+  color: #92400E;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .breakdown-grid {
+    grid-template-columns: 1fr;
+  }
+}
