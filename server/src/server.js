@@ -29,7 +29,7 @@ const emissionsRoutes = require('./routes/emissionsRoutes');
 const app = express();
 connectDB();
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: config.CLIENT_URL,
   credentials: true
 }));
 app.use(express.json({ limit: '50mb' }));
