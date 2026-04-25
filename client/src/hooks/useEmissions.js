@@ -97,36 +97,6 @@ export const useEmissions = (initialFileId = null) => {
   }, []);
 
   
-  const processFile = useCallback(async (fileId) => {
-    if (!fileId) return;
-
-    try {
-      setProcessing(true);
-      setError(null);
-      toast.loading('Processing emissions data...', { id: 'process' });
-
-      const res = await api.post(`/emissions/process/${fileId}`);
-
-      if (res.data.success) {
-        setProcessedData(res.data.data);
-        toast.success('Emissions data processed successfully!', { id: 'process' });
-        
-        
-        await fetchMetrics(fileId);
-      } else {
-        throw new Error(res.data.message || 'Processing failed');
-      }
-    } catch (err) {
-      console.error('[useEmissions] processFile error:', err);
-      const msg = err.response?.data?.message || err.message || 'Processing failed';
-      setError(msg);
-      toast.error(msg, { id: 'process' });
-    } finally {
-      setProcessing(false);
-    }
-  }, );
-
-  
   const fetchMetrics = useCallback(async (fileId) => {
     if (!fileId) return;
 
@@ -156,6 +126,35 @@ export const useEmissions = (initialFileId = null) => {
       setLoading(false);
     }
   }, []);
+
+  const processFile = useCallback(async (fileId) => {
+    if (!fileId) return;
+
+    try {
+      setProcessing(true);
+      setError(null);
+      toast.loading('Processing emissions data...', { id: 'process' });
+
+      const res = await api.post(`/emissions/process/${fileId}`);
+
+      if (res.data.success) {
+        setProcessedData(res.data.data);
+        toast.success('Emissions data processed successfully!', { id: 'process' });
+        
+        
+        await fetchMetrics(fileId);
+      } else {
+        throw new Error(res.data.message || 'Processing failed');
+      }
+    } catch (err) {
+      console.error('[useEmissions] processFile error:', err);
+      const msg = err.response?.data?.message || err.message || 'Processing failed';
+      setError(msg);
+      toast.error(msg, { id: 'process' });
+    } finally {
+      setProcessing(false);
+    }
+  }, [fetchMetrics]);
 
   useEffect(() => {
     fetchEmissionsFiles();
