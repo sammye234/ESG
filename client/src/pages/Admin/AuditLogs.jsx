@@ -23,7 +23,7 @@ const AuditLogs = () => {
 
   useEffect(() => {
     fetchAuditLogs();
-  }, [pagination.page, pagination.limit, actionFilter, fromDate, toDate]);
+  }, );
 
   const fetchAuditLogs = async () => {
     setLoading(true);

@@ -23,7 +23,7 @@ const EnergyDashboard = ({ onBack }) => {
   const [energyFiles, setEnergyFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState('');
   const [energyData, setEnergyData] = useState(null);
-  const [metrics, setMetrics] = useState(null);
+  const [ setMetrics] = useState(null);
   const [businessUnits, setBusinessUnits] = useState([]);
   const [selectedBU, setSelectedBU] = useState('all');
   const [processingFile, setProcessingFile] = useState(false);
@@ -34,7 +34,7 @@ const EnergyDashboard = ({ onBack }) => {
 
   useEffect(() => {
     loadEnergyFiles();
-  }, []);
+  }, );
 
   const loadEnergyFiles = async () => {
     try {
@@ -52,7 +52,7 @@ const EnergyDashboard = ({ onBack }) => {
     if (selectedFile) {
       handleFileSelection(selectedFile);
     }
-  }, [selectedFile]);
+  }, );
 
   const handleFileSelection = async (fileId) => {
     setProcessingFile(true);
@@ -141,7 +141,7 @@ const EnergyDashboard = ({ onBack }) => {
     'Fossil Fuel': month.fossilFuel
   }));
 
-  const COLORS = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'];
+  //const COLORS = ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444'];
 
   // 1. Energy Source Pie Chart Data
   const energySourcePieData = displayMetrics ? [

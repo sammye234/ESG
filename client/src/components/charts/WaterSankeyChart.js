@@ -139,7 +139,6 @@ const WaterSankeyChart = ({ waterData }) => {
     const { x, y, width, height, index } = props;
     const isSource = index <= 2;
     const isOutput = index >= 8;
-    const isMiddle = index === 3;
     
     const colors = {
       0: '#00b4d8', 1: '#89ff01', 2: '#004208', 3: '#f59e0b',

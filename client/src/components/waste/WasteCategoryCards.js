@@ -11,7 +11,7 @@ const WasteCategoryCards = ({ data }) => {
 
   // Sum breakdowns from monthlyData
   let jhute = 0, leftover = 0, padding = 0;
-  let polyPlastic = 0, carton = 0, paper = 0, emptyCone = 0, patternBoard = 0;
+  let polyPlastic = 0, carton = 0, paper = 0, patternBoard = 0;
   let medical = 0, metal = 0, electric = 0, chemicalDrum = 0;
   let sludge = 0, foodWaste = 0;
 

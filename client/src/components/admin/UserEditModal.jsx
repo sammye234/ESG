@@ -126,7 +126,7 @@ const UserEditModal = ({ user, isOpen, onClose, onSuccess }) => {
     setLoading(true);
 
     try {
-      const response = await axios.put(
+      await axios.put(
         `${API_BASE}/admin/users/${user._id}`,
         formData,
         {

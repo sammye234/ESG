@@ -12,7 +12,7 @@ import api from '../services/api';
 
 const CSVEditor = ({ fileId, onBack }) => {
   const { getFileById, renameFile } = useFiles();
-  const [file, setFile] = useState(null);
+  const [ setFile] = useState(null);
   const [data, setData] = useState([]);
   const [headers, setHeaders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +25,7 @@ const CSVEditor = ({ fileId, onBack }) => {
 
   useEffect(() => {
     loadFile();
-  }, [fileId]);
+  }, );
 
   const loadFile = async () => {
     try {

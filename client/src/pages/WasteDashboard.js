@@ -2,7 +2,7 @@
 // client/src/pages/WasteDashboard.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Home, Download, Trash2, Loader, Building2, Info } from 'lucide-react';
+import { Home, Download, Trash2, Loader, Building2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import WasteKPICards from '../components/waste/WasteKPICards';
 import WasteTrendChart from '../components/waste/WasteTrendChart';
@@ -152,7 +152,7 @@ const WasteDashboard = ({ onBack }) => {
 
   useEffect(() => {
     loadWasteFiles();
-  }, []);
+  }, );
 
   const loadWasteFiles = async () => {
     try {
@@ -178,7 +178,7 @@ const WasteDashboard = ({ onBack }) => {
     if (selectedFileId) {
       handleFileSelection(selectedFileId);
     }
-  }, [selectedFileId]);
+  }, );
 
   const handleFileSelection = async (fileId) => {
     setProcessingFile(true);

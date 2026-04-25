@@ -1,5 +1,5 @@
 // client/src/pages/KPICalculator.js
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Calculator, Home, FileText, X, Save, Trash2, TrendingUp } from 'lucide-react';
 import useFiles from '../hooks/useFiles';
 import { useContext } from 'react';

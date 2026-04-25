@@ -60,11 +60,9 @@
 // client/src/hooks/useEmissions.js
 import { useState, useCallback, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import api from '../services/api';
-import { useAuth } from '../context/AuthContext'; 
+import api from '../services/api'; 
 
-export const useEmissions = (initialFileId = null) => {
-  const { user } = useAuth(); 
+export const useEmissions = (initialFileId = null) => { 
 
   const [selectedFileId, setSelectedFileId] = useState(initialFileId);
   const [emissionsFiles, setEmissionsFiles] = useState([]);       
@@ -126,7 +124,7 @@ export const useEmissions = (initialFileId = null) => {
     } finally {
       setProcessing(false);
     }
-  }, []);
+  }, );
 
   
   const fetchMetrics = useCallback(async (fileId) => {
@@ -167,7 +165,7 @@ export const useEmissions = (initialFileId = null) => {
     if (initialFileId && !metrics && !processedData) {
       fetchMetrics(initialFileId);
     }
-  }, [initialFileId, fetchMetrics]);
+  }, );
 
   
   return {

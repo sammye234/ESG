@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Upload, LayoutGrid, Beaker, FileText, Activity, Droplets, Trash2, Users, Shield, TrendingUp, AlertCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { LayoutGrid, FileText, Activity, Droplets, Trash2, Users, Shield, TrendingUp, AlertCircle } from 'lucide-react';
 import RGL, { WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -9,7 +9,7 @@ const ReactGridLayout = WidthProvider(RGL);
 // Main Integrated Dashboard
 const IntegratedESGDashboard = () => {
   const [currentView, setCurrentView] = useState('main'); // main, emissions, water, waste
-  const [widgets, setWidgets] = useState([
+  const [widgets] = useState([
     { i: 'scope1', x: 0, y: 0, w: 3, h: 2, title: 'Scope 1', value: 12383, unit: 't CO₂e', color: '#EF4444' },
     { i: 'scope2', x: 3, y: 0, w: 3, h: 2, title: 'Scope 2', value: 3216703, unit: 't CO₂e', color: '#3B82F6' },
     { i: 'scope3', x: 6, y: 0, w: 3, h: 2, title: 'Scope 3', value: 0, unit: 't CO₂e', color: '#10B981' },
@@ -316,7 +316,7 @@ const IntegratedESGDashboard = () => {
       {currentView === 'main' && <MainDashboard />}
       {currentView === 'emissions' && <EmissionsDashboard />}
       {currentView === 'water' && <WaterDashboard />}
-     {/* {currentView === 'waste' && <WasteDashboard />}*/}
+      {currentView === 'waste' && <WasteDashboard />}
     </div>
   );
 };

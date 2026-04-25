@@ -2,10 +2,10 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEmissions } from '../hooks/useEmissions';
-import toast from 'react-hot-toast';
+
 
 import {
-  BarChart, Bar, AreaChart, Area, PieChart, Pie, Cell,
+  AreaChart, Area, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line
 } from 'recharts';
 

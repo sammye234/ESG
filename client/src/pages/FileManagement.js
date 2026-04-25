@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from "react-hot-toast";
 import { 
-  Upload, FileText, Trash2, Eye, Download, X, Search, Table, ChevronRight 
+  Upload, FileText, Trash2, Eye, Download, X, Search, Table
 } from 'lucide-react';
 import useFiles from '../hooks/useFiles';
 import { Header } from '../components/common';

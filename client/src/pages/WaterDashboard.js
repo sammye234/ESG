@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-  LineChart, Line, BarChart, Bar, AreaChart, Area,
+  BarChart, Bar, AreaChart, Area,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, 
   ResponsiveContainer, PieChart, Pie, Cell 
 } from 'recharts';
@@ -27,7 +27,7 @@ const WaterDashboard = ({ onBack }) => {
   const [waterFiles, setWaterFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState('');
   const [waterData, setWaterData] = useState(null);
-  const [metrics, setMetrics] = useState(null);
+  const [setMetrics] = useState(null);
   const [businessUnits, setBusinessUnits] = useState([]);
   const [selectedBU, setSelectedBU] = useState('all');
   const [processingFile, setProcessingFile] = useState(false);
@@ -38,7 +38,7 @@ const WaterDashboard = ({ onBack }) => {
 
   useEffect(() => {
     loadWaterFiles();
-  }, []);
+  }, );
 
   const loadWaterFiles = async () => {
     try {
@@ -56,7 +56,7 @@ const WaterDashboard = ({ onBack }) => {
     if (selectedFile) {
       handleFileSelection(selectedFile);
     }
-  }, [selectedFile]);
+  }, );
 
   const handleFileSelection = async (fileId) => {
     setProcessingFile(true);

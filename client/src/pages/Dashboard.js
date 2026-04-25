@@ -293,8 +293,7 @@ const SocialView = () => {
   const BU_COLORS   = {HO:'#2563eb',GTL:'#059669','4AL':'#e11d74',BFL:'#f59e0b'};
   const buList      = sbu==='ALL'?['HO','GTL','4AL','BFL']:[sbu];
   const radarData   = ESI_DIMS.map((label,i)=>{const e={dimension:label};buList.forEach(b=>{e[b]=esiData[b][i];});return e;});
-  const absentData  = MONTHS.map((m,i)=>({month:m,rate:absenteeism[i]}));
-  const absentAvg   = (absenteeism.reduce((a,v)=>a+v,0)/12).toFixed(2);
+  
   const csrSpend    = csrData.spending.map(s=>({name:s.name,amount:Math.round(csrData.budget*s.pct/100)}));
   const plantedPct  = Math.round((csrData.treePlanting.planted/csrData.treePlanting.target)*100);
 

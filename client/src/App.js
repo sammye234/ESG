@@ -1,8 +1,8 @@
 // client/src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate,  Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 //import { ToastContainer } from 'react-toastify';
-import { toast, Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -107,7 +107,7 @@ function AppContent() {
     <>
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<SignIn />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<CreateAccount />} />
 

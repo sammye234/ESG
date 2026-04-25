@@ -297,10 +297,12 @@ export const extractFileReferences = (formulaStr) => {
   return Array.from(fileRefs);
 };
 
-export default {
+const formulaParserExports = {
   parseFormula,
   parseFormulaDetailed,
   validateFormula,
   getFormulaSuggestions,
   extractFileReferences
 };
+
+export default formulaParserExports;

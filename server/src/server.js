@@ -28,8 +28,24 @@ const adminRoutes = require('./routes/admin');
 const emissionsRoutes = require('./routes/emissionsRoutes');
 const app = express();
 connectDB();
+// app.use(cors({
+//   origin: config.CLIENT_URL,
+//   credentials: true
+// }));
 app.use(cors({
-  origin: config.CLIENT_URL,
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'https://esg-nine-eta.vercel.app',
+      config.CLIENT_URL
+    ].filter(Boolean);
+
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 app.use(express.json({ limit: '50mb' }));

@@ -112,7 +112,7 @@ const WasteSankeyChart = ({ wasteData }) => {
   }
 
 const customNode = (props) => {
-    const { x, y, width, height, index, payload } = props;
+    const { x, y, width, height, index } = props;
     
     // Color scheme matching your reference
     const colors = {
