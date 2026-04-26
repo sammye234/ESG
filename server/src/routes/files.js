@@ -1,10 +1,11 @@
-// server/src/routes/files.js
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const File = require('../models/File'); 
+const Papa = require('papaparse');
+const XLSX = require('xlsx');
+const File = require('../models/File');
 
 const {
   getFiles,
@@ -28,28 +29,22 @@ const { applyBuScope, enforceBuOwnership } = require('../middleware/scope');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadDir = path.join(__dirname, '../../uploads');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
     cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName);
+    cb(null, `${Date.now()}-${file.originalname}`);
   }
 });
 
 const upload = multer({
-  storage: storage,
-  limits: { fileSize: 50 * 1024 * 1024 }, // 50MB
+  storage,
+  limits: { fileSize: 50 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     const allowedTypes = /csv|xlsx|xls/;
     const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
     const mimetype = allowedTypes.test(file.mimetype) || file.mimetype.includes('spreadsheet');
-
-    if (extname || mimetype) {
-      return cb(null, true);
-    }
+    if (extname || mimetype) return cb(null, true);
     cb(new Error('Only CSV, XLSX and XLS files are allowed!'));
   }
 });
@@ -58,50 +53,39 @@ router.use(protect);
 
 router.get('/', applyBuScope, getFiles);
 router.get('/folder/:folderId', applyBuScope, getFilesByFolder);
-
 router.post('/folder', requireUploadPermission, applyBuScope, enforceBuOwnership, createFolder);
 router.post('/upload', requireUploadPermission, upload.single('file'), applyBuScope, enforceBuOwnership, uploadFile);
 
-
 router.get('/:id/download', applyBuScope, async (req, res) => {
   try {
-    console.log('⬇️ [Download] File ID:', req.params.id);
-    
-    const file = await File.findOne({
-      _id: req.params.id,
-      ...req.buFilter  
-    });
+    const file = await File.findOne({ _id: req.params.id, ...req.buFilter });
 
     if (!file) {
-      console.log('❌ [Download] File not found or access denied');
-      return res.status(404).json({
-        success: false,
-        message: 'File not found or you do not have access to this file'
-      });
+      return res.status(404).json({ success: false, message: 'File not found or access denied' });
     }
 
-    console.log('✅ [Download] File found:', file.originalName, 'BU:', file.businessUnit);
+    const isCSV = file.type === 'csv' || file.mimeType?.includes('csv') || file.originalName?.endsWith('.csv');
 
-    const filePath = file.path; 
-
-    if (!fs.existsSync(filePath)) {
-      console.log('❌ [Download] File not found on disk:', filePath);
-      return res.status(404).json({
-        success: false,
-        message: 'File not found on server'
+    if (isCSV) {
+      const csv = Papa.unparse(file.data || []);
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename="${file.originalName || 'download.csv'}"`);
+      return res.send(csv);
+    } else {
+      const wb = XLSX.utils.book_new();
+      const sheets = file.sheets?.length > 0 ? file.sheets : [{ name: 'Sheet1', data: file.data || [] }];
+      sheets.forEach(sheet => {
+        const ws = XLSX.utils.json_to_sheet(sheet.data || []);
+        XLSX.utils.book_append_sheet(wb, ws, sheet.name || 'Sheet1');
       });
+      const buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', `attachment; filename="${file.originalName || 'download.xlsx'}"`);
+      return res.send(buffer);
     }
-
-    
-    console.log('📤 [Download] Sending file:', filePath);
-    res.download(filePath, file.originalName || file.name || 'download');
   } catch (error) {
-    console.error('❌ [Download] Error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to download file',
-      error: error.message
-    });
+    console.error('Download error:', error);
+    res.status(500).json({ success: false, message: 'Failed to download file', error: error.message });
   }
 });
 
