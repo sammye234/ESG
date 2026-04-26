@@ -1,5 +1,5 @@
 // client/src/pages/WaterDashboard.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   BarChart, Bar, AreaChart, Area,
@@ -27,20 +27,16 @@ const WaterDashboard = ({ onBack }) => {
   const [waterFiles, setWaterFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState('');
   const [waterData, setWaterData] = useState(null);
-  const [setMetrics] = useState(null);
+  //const [metrics, setMetrics] = useState(null);
   const [businessUnits, setBusinessUnits] = useState([]);
   const [selectedBU, setSelectedBU] = useState('all');
   const [processingFile, setProcessingFile] = useState(false);
   const handleBackToDashboard = () => {
-    console.log('🔙 Going back to dashboard');
     navigate('/dashboard');
   };
 
-  useEffect(() => {
-    loadWaterFiles();
-  }, );
 
-  const loadWaterFiles = async () => {
+  const loadWaterFiles = useCallback(async () => {
     try {
       const response = await getWaterFiles();
       if (response.success) {
@@ -50,27 +46,17 @@ const WaterDashboard = ({ onBack }) => {
       console.error('Error loading files:', err);
       toast.error('Failed to load water files', { icon: '❌' });
     }
-  };
+  }, [getWaterFiles]);
 
-  useEffect(() => {
-    if (selectedFile) {
-      handleFileSelection(selectedFile);
-    }
-  }, );
-
-  const handleFileSelection = async (fileId) => {
+  const handleFileSelection = useCallback(async (fileId) => {
     setProcessingFile(true);
     try {
       const processResponse = await processWaterFile(fileId);
-      
       if (processResponse.success) {
         const metricsResponse = await getMetrics(fileId);
-        
         if (metricsResponse.success) {
           setWaterData(metricsResponse.data);
-          setMetrics(metricsResponse.data.metrics);
-          
-          const buList = metricsResponse.data.factoryData 
+          const buList = metricsResponse.data.factoryData
             ? Object.keys(metricsResponse.data.factoryData)
             : [];
           setBusinessUnits(buList);
@@ -88,7 +74,19 @@ const WaterDashboard = ({ onBack }) => {
     } finally {
       setProcessingFile(false);
     }
-  };
+  }, [processWaterFile, getMetrics]);
+
+  
+  useEffect(() => {
+    loadWaterFiles();
+  }, [loadWaterFiles]);
+
+  useEffect(() => {
+    if (selectedFile) {
+      handleFileSelection(selectedFile);
+    }
+  }, [selectedFile, handleFileSelection]);
+  
 
   const getDisplayData = () => {
     if (!waterData) return { monthlyData: [], metrics: null };

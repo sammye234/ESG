@@ -1,5 +1,5 @@
 //client/src/pages/EnergyDashboard.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEnergy } from '../hooks/useEnergy';
 import toast from 'react-hot-toast';
@@ -23,7 +23,7 @@ const EnergyDashboard = ({ onBack }) => {
   const [energyFiles, setEnergyFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState('');
   const [energyData, setEnergyData] = useState(null);
-  const [ setMetrics] = useState(null);
+  const [ , setMetrics] = useState(null);
   const [businessUnits, setBusinessUnits] = useState([]);
   const [selectedBU, setSelectedBU] = useState('all');
   const [processingFile, setProcessingFile] = useState(false);
@@ -32,11 +32,9 @@ const EnergyDashboard = ({ onBack }) => {
     navigate('/dashboard');
   };
 
-  useEffect(() => {
-    loadEnergyFiles();
-  }, );
+  useEffect(() => { loadEnergyFiles(); }, []);
 
-  const loadEnergyFiles = async () => {
+  const loadEnergyFiles = useCallback(async () => {
     try {
       const response = await getEnergyFiles();
       if (response.success) {
@@ -46,13 +44,11 @@ const EnergyDashboard = ({ onBack }) => {
       console.error('❌ Error loading files:', err);
       toast.error('Failed to load energy files', { icon: '❌' });
     }
-  };
+  }, [getEnergyFiles]);
 
   useEffect(() => {
-    if (selectedFile) {
-      handleFileSelection(selectedFile);
-    }
-  }, );
+    if (selectedFile) handleFileSelection(selectedFile);
+  }, [selectedFile]);
 
   const handleFileSelection = async (fileId) => {
     setProcessingFile(true);

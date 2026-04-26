@@ -152,7 +152,7 @@ const WasteDashboard = ({ onBack }) => {
 
   useEffect(() => {
     loadWasteFiles();
-  }, );
+  }, []);
 
   const loadWasteFiles = async () => {
     try {
@@ -178,7 +178,7 @@ const WasteDashboard = ({ onBack }) => {
     if (selectedFileId) {
       handleFileSelection(selectedFileId);
     }
-  }, );
+  }, [selectedFileId]);
 
   const handleFileSelection = async (fileId) => {
     setProcessingFile(true);
