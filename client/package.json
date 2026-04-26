@@ -30,7 +30,12 @@
   "eslintConfig": {
     "extends": [
       "react-app"
-    ]
+    ],
+    "rules": {
+      "react-hooks/exhaustive-deps": "warn",
+      "no-unused-vars": "warn",
+      "import/no-anonymous-default-export": "warn"
+    }
   },
   "browserslist": {
     "production": [
