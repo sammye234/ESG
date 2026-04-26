@@ -150,6 +150,7 @@ const WasteDashboard = ({ onBack }) => {
     navigate('/dashboard');
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     loadWasteFiles();
   }, []);
@@ -173,7 +174,8 @@ const WasteDashboard = ({ onBack }) => {
       toast.error('Failed to load waste files', { icon: '❌' });
     }
   };
-
+  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (selectedFileId) {
       handleFileSelection(selectedFileId);

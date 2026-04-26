@@ -32,6 +32,7 @@ const EnergyDashboard = ({ onBack }) => {
     navigate('/dashboard');
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { loadEnergyFiles(); }, []);
 
   const loadEnergyFiles = useCallback(async () => {
@@ -46,6 +47,7 @@ const EnergyDashboard = ({ onBack }) => {
     }
   }, [getEnergyFiles]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps 
   useEffect(() => {
     if (selectedFile) handleFileSelection(selectedFile);
   }, [selectedFile]);
