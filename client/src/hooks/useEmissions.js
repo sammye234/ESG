@@ -106,7 +106,7 @@ export const useEmissions = (initialFileId = null) => {
     if (initialFileId && !metrics && !processedData) {
       fetchMetrics(initialFileId);
     }
-  }, );
+  }, [initialFileId]);
 
   
   return {

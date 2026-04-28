@@ -21,6 +21,9 @@ import { MaterialCalculatorWidget } from '../components/widgets';
 // ─── DEMO DATA ───────────────────────────────────────────────────────────────
 
 const SBUS = ['ALL', 'HO', 'GTL', '4AL', 'BFL'];
+const BU_DISPLAY_LABELS = {
+  '4AL': '4AYDL',
+};
 const BU_LOGOS = {
   '4AL': '/logos/4al.png',
 };
@@ -212,7 +215,7 @@ const SBUFilter = ({ active, onChange }) => (
               : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
           }`}
         >
-          {s}
+          {BU_DISPLAY_LABELS[s] || s}
         </button>
       ))}
     </div>
@@ -837,7 +840,7 @@ const Dashboard = () => {
           <img
             src={userBULogo}
             alt="BU Logo"
-            className="absolute right-6 top-1/2 -translate-y-1/2 h-10 object-contain z-10"
+            className="absolute right-6 top-1/2 -translate-y-1/2 h-18 object-contain z-10"
           />
         )}
       </div>

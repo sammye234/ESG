@@ -13,6 +13,8 @@ import {
   Leaf, Loader, Building2, Activity, Zap, Truck, AlertCircle, TrendingUp, Home
 } from 'lucide-react';
 
+import { BU_LOGOS } from '../config/buConfig';
+import { BU_DISPLAY_LABELS } from '../config/buConfig';
 // KPI Card 
 const KPICard = ({ title, value, unit, color, icon: Icon, subtitle }) => (
   <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border-l-4" style={{ borderLeftColor: color }}>
@@ -245,10 +247,13 @@ return (
                   onClick={() => setSelectedBU(bu)}
                   className={`px-5 py-2 rounded-lg font-medium ${selectedBU === bu ? 'bg-green-600 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
                 >
-                  {bu}
+                  {BU_DISPLAY_LABELS[bu] || bu}
                 </button>
               ))}
             </div>
+            {BU_LOGOS[selectedBU] && (
+                <img src={BU_LOGOS[selectedBU]} alt="BU Logo" className="h-16 object-contain ml-auto" />
+            )}
           </div>
         </div>
       )}

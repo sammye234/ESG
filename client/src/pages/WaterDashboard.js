@@ -14,6 +14,8 @@ import toast from 'react-hot-toast';
 import { Header } from '../components/common';
 import { WaterSankeyChart } from '../components/charts';
 import { useWater } from '../hooks/useWater';
+import { BU_LOGOS } from '../config/buConfig';
+import { BU_DISPLAY_LABELS } from '../config/buConfig';
 
 const WaterDashboard = ({ onBack }) => {
   const navigate = useNavigate();
@@ -223,10 +225,13 @@ const WaterDashboard = ({ onBack }) => {
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                   >
-                    {bu}
+                    {BU_DISPLAY_LABELS[bu] || bu}
                   </button>
                 ))}
               </div>
+              {BU_LOGOS[selectedBU] && (
+                <img src={BU_LOGOS[selectedBU]} alt="BU Logo" className="h-16 object-contain ml-auto" />
+              )}
             </div>
           </div>
         )}
