@@ -21,11 +21,26 @@ import { MaterialCalculatorWidget } from '../components/widgets';
 // ─── DEMO DATA ───────────────────────────────────────────────────────────────
 
 const SBUS = ['ALL', 'HO', 'GTL', '4AL', 'BFL'];
+const BU_LOGOS = {
+  '4AL': '/logos/4al.png',
+};
 
+const DIVISION_LABELS = {
+  DEFAULT: ['Knitting','Dyeing','Finishing','QC','Admin','Cutting','Sewing','Packing'],
+  '4AL':   ['Barishal','Chittagong','Dhaka','Khulna','Mymensingh','Rajshahi','Sylhet','Rangpur'],
+};
 const demoData = {
   HO:  { male:120, female:210, mgmtM:18, mgmtF:12, divs:[22,18,15,20,14,16,12,13], ages:[45,80,95,110],  disability:6,  ethnic:{Bengali:290,Chakma:22,Marma:8,Garo:10},  newHire:34,  left:12, localEmp:280  },
   GTL: { male:540, female:820, mgmtM:32, mgmtF:18, divs:[120,105,98,110,80,95,110,42], ages:[180,350,210,120], disability:18, ethnic:{Bengali:1200,Chakma:80,Marma:40,Garo:40},  newHire:120, left:55, localEmp:1150 },
-  '4AL':{ male:380, female:610, mgmtM:24, mgmtF:14, divs:[90,85,75,88,60,72,80,40],   ages:[140,260,170,90],  disability:14, ethnic:{Bengali:900,Chakma:50,Marma:25,Garo:15},   newHire:90,  left:42, localEmp:870  },
+  '4AL': {
+    male: 2375, female: 4530,
+    mgmtM: 74, mgmtF: 110,
+    divs: [759, 138, 1864, 345, 759, 1450, 69, 1519],
+    ages: [3961, 2499, 420, 25],
+    disability: 14,
+    ethnic: { Bengali: 900, Chakma: 50, Marma: 25, Garo: 15 },
+    newHire: 90, left: 464, localEmp: 870
+  },
   BFL: { male:460, female:740, mgmtM:28, mgmtF:16, divs:[110,100,90,105,70,88,95,42], ages:[170,300,195,105], disability:16, ethnic:{Bengali:1050,Chakma:65,Marma:35,Garo:50},  newHire:110, left:48, localEmp:1000 },
 };
 demoData['ALL'] = {
@@ -185,20 +200,29 @@ const StatCard = ({ label, value, unit='', sub='', color='emerald' }) => {
 };
 
 const SBUFilter = ({ active, onChange }) => (
-  <div className="flex gap-2 flex-wrap mb-6">
-    {SBUS.map(s => (
-      <button
-        key={s}
-        onClick={() => onChange(s)}
-        className={`px-5 py-2 rounded-xl font-semibold text-sm transition-all ${
-          active === s
-            ? 'bg-gray-900 text-white shadow-lg scale-105'
-            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-        }`}
-      >
-        {s}
-      </button>
-    ))}
+  <div className="flex items-center gap-4 mb-6 flex-wrap">
+    <div className="flex gap-2 flex-wrap">
+      {SBUS.map(s => (
+        <button
+          key={s}
+          onClick={() => onChange(s)}
+          className={`px-5 py-2 rounded-xl font-semibold text-sm transition-all ${
+            active === s
+              ? 'bg-gray-900 text-white shadow-lg scale-105'
+              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          }`}
+        >
+          {s}
+        </button>
+      ))}
+    </div>
+    {BU_LOGOS[active] && (
+      <img
+        src={BU_LOGOS[active]}
+        alt={`${active} logo`}
+        className="h-10 object-contain ml-auto"
+      />
+    )}
   </div>
 );
 
@@ -287,7 +311,8 @@ const SocialView = () => {
 
   const genderPie   = [{name:'Male',value:d.male},{name:'Female',value:d.female}];
   const mgmtDonut   = [{name:'Male',value:d.mgmtM},{name:'Female',value:d.mgmtF}];
-  const divBar      = ['Knitting','Dyeing','Finishing','QC','Admin','Cutting','Sewing','Packing'].map((l,i)=>({div:l,count:d.divs[i]}));
+  const divLabels = DIVISION_LABELS[sbu] || DIVISION_LABELS.DEFAULT;
+  const divBar = divLabels.map((l, i) => ({ div: l, count: d.divs[i] }));
   const ageBar      = [{group:'18–25',count:d.ages[0]},{group:'26–35',count:d.ages[1]},{group:'36–45',count:d.ages[2]},{group:'46+',count:d.ages[3]}];
   const ethnicBar   = Object.entries(d.ethnic).map(([k,v])=>({group:k,count:v}));
   const BU_COLORS   = {HO:'#2563eb',GTL:'#059669','4AL':'#e11d74',BFL:'#f59e0b'};
@@ -741,6 +766,7 @@ const GovernanceView = () => {
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
+  const userBULogo = BU_LOGOS[user?.businessUnit];
   const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeTab, setActiveTab] = useState('environmental');
@@ -799,17 +825,25 @@ const Dashboard = () => {
         onShowMaterialCalc={() => setShowMaterialCalc(true)}
       />
 
-      <Header
-        title="ESG Dashboard"
-        subtitle={`Welcome, ${user?.username || user?.email}`}
-        onMenuClick={() => setShowSidebar(true)}
-        actions={[]}
-        onLogout={logout}
-      />
+      <div className="relative">
+        <Header
+          title="ESG Dashboard"
+          subtitle={`Welcome, ${user?.username || user?.email}`}
+          onMenuClick={() => setShowSidebar(true)}
+          actions={[]}
+          onLogout={logout}
+        />
+        {userBULogo && (
+          <img
+            src={userBULogo}
+            alt="BU Logo"
+            className="absolute right-6 top-1/2 -translate-y-1/2 h-10 object-contain z-10"
+          />
+        )}
+      </div>
 
       <main className="p-6 lg:p-8 max-w-7xl mx-auto">
 
-        {/* Tab Navigation */}
         <div className="bg-white rounded-2xl shadow-md p-3 mb-8 flex gap-2 flex-wrap">
           {tabs.map(t => {
             const Icon = t.icon;
@@ -832,7 +866,6 @@ const Dashboard = () => {
           })}
         </div>
 
-        {/* Tab Content */}
         {activeTab === 'environmental' && (
           <EnvironmentalView onNavigate={handleNavigate}/>
         )}
@@ -841,7 +874,6 @@ const Dashboard = () => {
 
       </main>
 
-      {/* Material Calculator Modal */}
       {showMaterialCalc && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100]"
