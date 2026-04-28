@@ -40,7 +40,7 @@ const demoData = {
     mgmtM: 74, mgmtF: 110,
     divs: [759, 138, 1864, 345, 759, 1450, 69, 1519],
     ages: [3961, 2499, 420, 25],
-    disability: 14,
+    disability: 50,
     ethnic: { Bengali: 900, Chakma: 50, Marma: 25, Garo: 15 },
     newHire: 90, left: 464, localEmp: 870
   },
