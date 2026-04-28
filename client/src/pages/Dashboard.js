@@ -24,6 +24,12 @@ const SBUS = ['ALL', 'HO', 'GTL', '4AL', 'BFL'];
 const BU_DISPLAY_LABELS = {
   '4AL': '4AYDL',
 };
+const BU_NORMALIZE = {
+  '4AYDL': '4AL',
+  'GTL':   'GTL',
+  'HO':    'HO',
+  'BFL':   'BFL',
+};
 const BU_LOGOS = {
   '4AL': '/logos/4al.png',
 };
@@ -307,8 +313,13 @@ const EnvironmentalView = ({ onNavigate }) => (
 
 // ─── SOCIAL VIEW ─────────────────────────────────────────────────────────────
 
-const SocialView = () => {
-  const [sbu, setSbu] = useState('ALL');
+const SocialView = ({user}) => {
+  
+  const isBUUser = ['bu_manager', 'bu_user'].includes(user?.role);
+  const userBU = BU_NORMALIZE[user?.businessUnit] || user?.businessUnit;
+  const [sbu, setSbu] = useState(isBUUser ? (userBU || 'ALL') : 'ALL');
+  const visibleSBUS = isBUUser ? [userBU] : SBUS;
+  //const [sbu, setSbu] = useState('ALL');
   const d = demoData[sbu];
   const total = d.male + d.female;
 
@@ -327,7 +338,17 @@ const SocialView = () => {
 
   return (
     <div>
-      <SBUFilter active={sbu} onChange={setSbu} />
+      {!isBUUser && <SBUFilter active={sbu} onChange={setSbu} />}
+      {isBUUser && (
+        <div className="flex items-center gap-4 mb-6">
+          <span className="px-5 py-2 rounded-xl font-semibold text-sm bg-gray-900 text-white">
+            {BU_DISPLAY_LABELS[sbu] || sbu}
+          </span>
+          {BU_LOGOS[sbu] && (
+            <img src={BU_LOGOS[sbu]} alt="BU Logo" className="h-16 object-contain" />
+          )}
+        </div>
+      )}
 
       {/* a. DEI */}
       <SectionHeading icon={Users} label="a. Diversity, Equity & Inclusion" color="blue" />
@@ -597,13 +618,25 @@ const SocialView = () => {
 
 // ─── GOVERNANCE VIEW ──────────────────────────────────────────────────────────
 
-const GovernanceView = () => {
+const GovernanceView = ({user}) => {
+  const isBUUser = ['bu_manager', 'bu_user'].includes(user?.role);
+  //const userBU = user?.businessUnit;
+  const userBU = BU_NORMALIZE[user?.businessUnit] || user?.businessUnit;
   const absentData = MONTHS.map((m,i)=>({month:m,rate:absenteeism[i]}));
   const absentAvg  = (absenteeism.reduce((a,v)=>a+v,0)/12).toFixed(2);
   const pipeTotal  = pipelineData.fresher+pipelineData.helper+pipelineData.skilled;
 
   return (
+
     <div>
+      {isBUUser && BU_LOGOS[userBU] && (
+        <div className="flex items-center gap-3 mb-6">
+          <img src={BU_LOGOS[userBU]} alt="BU Logo" className="h-16 object-contain" />
+          <span className="text-lg font-bold text-gray-700">
+            {BU_DISPLAY_LABELS[userBU] || userBU} — Governance Report
+          </span>
+        </div>
+      )}
       {/* a. Policy */}
       <SectionHeading icon={FileText} label="a. Policy Management" color="blue" />
 
@@ -872,8 +905,8 @@ const Dashboard = () => {
         {activeTab === 'environmental' && (
           <EnvironmentalView onNavigate={handleNavigate}/>
         )}
-        {activeTab === 'social' && <SocialView/>}
-        {activeTab === 'governance' && <GovernanceView/>}
+        {activeTab === 'social' && <SocialView user={user} />}
+        {activeTab === 'governance' && <GovernanceView user={user} />}
 
       </main>
 

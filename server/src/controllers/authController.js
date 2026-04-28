@@ -93,6 +93,7 @@ exports.login = async (req, res, next) => {
       process.env.JWT_SECRET,              
       { expiresIn: process.env.JWT_EXPIRE || '1d' }
     );
+    
 
     res.status(200).json({
       success: true,
@@ -104,7 +105,7 @@ exports.login = async (req, res, next) => {
         email: user.email,
         role: user.role,
         isActive: user.isActive,  
-        businessUnit: user.businessUnit?.code || null, 
+        businessUnit: user.businessUnit|| null, 
         createdAt: user.createdAt
       }
     });
@@ -137,7 +138,7 @@ exports.getCurrentUser = async (req, res, next) => {
         email: user.email,
         role: user.role,           
         isActive: user.isActive,   
-        businessUnit: user.businessUnit?.code || null,
+        businessUnit: user.businessUnit || null,
         createdAt: user.createdAt
       }
     });
