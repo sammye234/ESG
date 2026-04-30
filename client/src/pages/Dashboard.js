@@ -80,17 +80,17 @@ const trainingCategory = [
 ];
 
 const wellbeingChecks = [
-  {label:'Daycare available',            HO:true, GTL:true,  '4AL':true,  BFL:true },
-  {label:'Breastfeeding corner',         HO:true, GTL:true,  '4AL':true,  BFL:true },
+  {label:'Daycare available',            HO:false, GTL:true,  '4AL':true,  BFL:true },
+  {label:'Breastfeeding corner',         HO:false, GTL:true,  '4AL':true,  BFL:true },
   {label:'Nutritious food (pregnant)',   HO:false,GTL:true,  '4AL':true,  BFL:true },
-  {label:'Free medicine/multivitamins',  HO:true, GTL:true,  '4AL':true,  BFL:true },
-  {label:'Telemedicine access',          HO:true, GTL:true,  '4AL':false, BFL:true },
+  {label:'Free medicine/multivitamins',  HO:false, GTL:true,  '4AL':true,  BFL:true },
+  {label:'Telemedicine access',          HO:false, GTL:true,  '4AL':false, BFL:true },
   {label:'Free Friday clinic',           HO:false,GTL:true,  '4AL':true,  BFL:true },
-  {label:'Sanitary napkin disposer',     HO:true, GTL:true,  '4AL':true,  BFL:true },
-  {label:'Free health screening (M&F)',  HO:true, GTL:true,  '4AL':true,  BFL:true },
+  {label:'Sanitary napkin disposer',     HO:false, GTL:true,  '4AL':true,  BFL:true },
+  {label:'Free health screening (M&F)',  HO:false, GTL:true,  '4AL':true,  BFL:true },
   {label:'Free breast cancer screening', HO:false,GTL:true,  '4AL':false, BFL:true },
-  {label:'Fair-price shop',              HO:true, GTL:true,  '4AL':true,  BFL:false},
-  {label:'Indoor Env Quality 100%',      HO:true, GTL:false, '4AL':true,  BFL:true },
+  {label:'Fair-price shop',              HO:false, GTL:true,  '4AL':true,  BFL:false},
+  {label:'Indoor Env Quality 100%',      HO:false, GTL:false, '4AL':true,  BFL:true },
 ];
 
 const csrData = {
@@ -738,7 +738,7 @@ const GovernanceView = ({user}) => {
           </div>
         </ChartCard>
 
-        <ChartCard title="OHS Compliance" sub="Incidents recorded & action taken (Yes=1 / No=0)" borderColor="border-t-yellow-500">
+        <ChartCard title="OHS Compliance" sub="Incidents recorded & action taken (Yes / No)" borderColor="border-t-yellow-500">
           <table className="w-full text-sm border-collapse">
             <thead>
               <tr className="bg-yellow-50">
@@ -755,7 +755,7 @@ const GovernanceView = ({user}) => {
                   <td className="px-3 py-2.5">
                     <span className={`text-xs font-bold px-2 py-0.5 rounded-full
                       ${r.action?'bg-emerald-100 text-emerald-700':'bg-red-100 text-red-600'}`}>
-                      {r.action?'Yes (1)':'No (0)'}
+                      {r.action?'Yes':'No'}
                     </span>
                   </td>
                 </tr>
