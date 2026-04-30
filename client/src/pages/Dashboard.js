@@ -318,7 +318,7 @@ const SocialView = ({user}) => {
   const isBUUser = ['bu_manager', 'bu_user'].includes(user?.role);
   const userBU = BU_NORMALIZE[user?.businessUnit] || user?.businessUnit;
   const [sbu, setSbu] = useState(isBUUser ? (userBU || 'ALL') : 'ALL');
-  const visibleSBUS = isBUUser ? [userBU] : SBUS;
+  //const visibleSBUS = isBUUser ? [userBU] : SBUS;
   //const [sbu, setSbu] = useState('ALL');
   const d = demoData[sbu];
   const total = d.male + d.female;
