@@ -106,8 +106,8 @@ npm install
 cp .env.example .env
 
 # Edit .env with your configuration
-# MONGO_URI=mongodb://localhost:27017/esg-dashboard
-# JWT_SECRET=your-secret-key
+# MONGO_URI=
+# JWT_SECRET=
 
 # Start MongoDB (if local)
 mongod
@@ -257,7 +257,7 @@ This project is licensed under the ISC License.
 
 ## 👥 Authors
 
-Your Name - your.email@example.com
+Samiha Tasnim - samiha.tasnim137@gmail.com
 
 ## 🙏 Acknowledgments
 
