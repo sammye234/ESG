@@ -133,26 +133,6 @@ npm start
 
 Client will run on: `http://localhost:3000`
 
-## 🔐 Environment Variables
-
-### Backend (.env)
-```env
-NODE_ENV=development
-PORT=5000
-MONGO_URI=
-JWT_SECRET=
-JWT_EXPIRE=
-MAX_FILE_SIZE=
-UPLOAD_PATH=./uploads
-CLIENT_URL=
-```
-
-### Frontend (.env)
-```env
-REACT_APP_API_URL=
-REACT_APP_ENV=development
-```
-
 ## 📡 API Endpoints
 
 ### Authentication
@@ -250,14 +230,6 @@ February,1200,550,180
 3. Commit changes (`git commit -m 'Add AmazingFeature'`)
 4. Push to branch (`git push origin feature/AmazingFeature`)
 5. Open Pull Request
-
-## 📄 License
-
-This project is licensed under the ISC License.
-
-## 👥 Authors
-
-Samiha Tasnim - samiha.tasnim137@gmail.com
 
 ## 🙏 Acknowledgments
 
