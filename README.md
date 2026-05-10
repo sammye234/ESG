@@ -139,17 +139,17 @@ Client will run on: `http://localhost:3000`
 ```env
 NODE_ENV=development
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/esg-dashboard
-JWT_SECRET=your-super-secret-jwt-key
-JWT_EXPIRE=7d
-MAX_FILE_SIZE=10485760
+MONGO_URI=
+JWT_SECRET=
+JWT_EXPIRE=
+MAX_FILE_SIZE=
 UPLOAD_PATH=./uploads
-CLIENT_URL=http://localhost:3000
+CLIENT_URL=
 ```
 
 ### Frontend (.env)
 ```env
-REACT_APP_API_URL=http://localhost:5000/api
+REACT_APP_API_URL=
 REACT_APP_ENV=development
 ```
 
@@ -198,7 +198,7 @@ npm test
 
 ## 🚢 Deployment
 
-### Backend (Heroku/Railway/Render)
+### Backend (Railway)
 
 ```bash
 # Build
@@ -208,7 +208,7 @@ npm install --production
 npm start
 ```
 
-### Frontend (Vercel/Netlify)
+### Frontend (Vercel)
 
 ```bash
 # Build
