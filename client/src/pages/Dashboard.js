@@ -32,6 +32,10 @@ const BU_NORMALIZE = {
 };
 const BU_LOGOS = {
   '4AL': '/logos/4al.png',
+  'GTL': '/logos/gtl.png',
+  'HO': '/logos/ho.png',
+  'BFL': '/logos/bfl.png',
+  
 };
 
 const DIVISION_LABELS = {
