@@ -1,9 +1,9 @@
 export const BU_LOGOS = {
-  '4AL': '/logos/4al.png',
-  'GTL': '/logos/gtl.png',
-  'HO': '/logos/ho.png',
-  'BFL': '/logos/bfl.png',
-  'SESL': '/logos/sesl.png',
+  '4AL': '/logos/4AL.png',
+  'GTL': '/logos/GTL.png',
+  'HO': '/logos/HO.png',
+  'BFL': '/logos/BFL.png',
+  'SESL': '/logos/SESL.png',
 };
 
 export const BU_DISPLAY_LABELS = {
