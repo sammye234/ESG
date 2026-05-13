@@ -373,7 +373,7 @@ const SocialView = ({user}) => {
           </ResponsiveContainer>
         </ChartCard>
 
-        <ChartCard title="Gender in Leadership" sub="Management & Supervisory roles — donut chart" borderColor="border-t-pink-500">
+        <ChartCard title="Gender in Leadership" sub="Manager & above roles" borderColor="border-t-pink-500">
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
               <Pie data={mgmtDonut} cx="50%" cy="50%" innerRadius={55} outerRadius={85}
